@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:55:03 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 15:55:19 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 16:25:08 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,26 @@ int main()
 	int ft = 0;
 	char *s = NULL;
 
-	F("083.[%0#+10d]\t\t\t", -42);
+	printf("%05.d", 30);
+
+	// F("083.[%0#+10d]\t\t\t", -42);
 
 	// printf("[%.d, %.0d]", 0, 0);
+
+	// printf("hhd	is	%lu\n", sizeof(signed char));
+	// printf("hd	is	%lu\n", sizeof(short int));
+	// printf("d	is	%lu\n", sizeof(int));
+	// printf("ld	is	%lu\n", sizeof(long int));
+	// printf("lld	is	%lu\n\n", sizeof(long long int));
+
+	// printf("hhu	is	%lu\n", sizeof(unsigned char));
+	// printf("hu	is	%lu\n", sizeof(unsigned short int));
+	// printf("u	is	%lu\n", sizeof(unsigned int));
+	// printf("lu	is	%lu\n", sizeof(unsigned long int));
+	// printf("llu	is	%lu\n\n", sizeof(unsigned long long int));
+
+	// printf("f	is	%lu\n", sizeof(double));
+	// printf("Lf	is	%lu\n", sizeof(long double));
 
 
 	// F("%p", "hello");
