@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 11:59:44 by thule             #+#    #+#             */
-/*   Updated: 2022/03/29 21:58:50 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/12 11:14:21 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	ft_lstaddlast(t_list **alst, t_list *new);
 int		ft_isspace(int c);
 char	*ft_lltoa(long long int n);
 char	*ft_ulltoa(unsigned long long int n);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 /*_________GNL_________*/
 int		get_next_line(const int fd, char **line);
