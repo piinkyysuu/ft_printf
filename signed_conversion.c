@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:55:16 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 15:23:50 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 16:16:48 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	print_signed_conversion(t_proto *p, long long int n)
 
 void	signed_conversion(t_proto *p, va_list *arg)
 {
+	if (p->precision == -1)
+		p->precision = 1;
 	if (ft_strcmp(p->length, "ll") == 0)
 		print_signed_conversion(p, (long long int)va_arg(*arg, long long int));
 	else if (ft_strcmp(p->length, "hh") == 0)

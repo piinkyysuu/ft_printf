@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 05:21:39 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 15:14:40 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 16:16:45 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	print_unsigned_conversion(t_proto *p, unsigned long long int n)
 
 void	unsigned_conversion(t_proto *p, va_list *arg)
 {
+	if (p->precision == -1)
+		p->precision = 1;
 	if (ft_strcmp(p->length, "ll") == 0)
 		print_unsigned_conversion(p, (unsigned long long int)va_arg(*arg, unsigned long long int));
 	else if (ft_strcmp(p->length, "hh") == 0)
