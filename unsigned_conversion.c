@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsigned_conversion.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 05:21:39 by thule             #+#    #+#             */
-/*   Updated: 2022/04/10 05:22:06 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/12 14:46:08 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 void	case_0(t_proto *p)
 {
-	if ((!p->precision && p->specifier == 'o') || 
-		p->precision && (p->specifier == 'u' || 
-		p->specifier == 'x' || p->specifier == 'X'))
+	if (p->specifier == 'o')
 	{
 		p->counter++;
-		field_width(p);
+		if (p->width > p->counter && !p->minus)
+			padding_with_c(p->width - p->counter, ' ');
 		write(1, "0", 1);
-		field_width(p);
-		return ;
+		if (p->width > p->counter && p->minus)
+			padding_with_c(p->width - p->counter, ' ');
 	}
-	if (!p->precision)
+	else
 	{
-		field_width(p);
-		return ;
+		if (p->width > p->counter)
+			padding_with_c(p->width - p->counter, ' ');
 	}
+	if (p->width > p->counter)
+		p->counter += p->width - p->counter;
 }
 
 void	print_unsigned_conversion(t_proto *p, unsigned long long int n)
@@ -36,27 +37,23 @@ void	print_unsigned_conversion(t_proto *p, unsigned long long int n)
 	int	base;
 
 	base = assign_base(p);
-	if (!n)
-	{
+	if (!n && !p->precision)
 		case_0(p);
-		return;
-	}
-	p->number_len = number_len(n, base);
-	if (p->precision > p->number_len)
-		p->counter += p->precision;
 	else
-		p->counter += p->number_len;
-	if (p->hashtag && p->specifier == 'o' && p->precision < p->number_len)
-		p->counter++;
-	if (p->hashtag && (p->specifier == 'x' || p->specifier == 'X'))
-		p->counter = p->counter + 2;
-	if (!p->minus)
-		field_width(p);
-	printer_helper(p);
-	print_number(n, base, p);
-	if (p->minus)
-		field_width(p);
+	{
+		p->number_len = number_len(n, base);
+		p->counter += ft_max(p->precision, p->number_len);
+		if (p->hashtag && n)
+		{
+			if (p->specifier == 'o' && p->precision < p->number_len)
+				p->counter++;
+			else if (p->specifier == 'x' || p->specifier == 'X')
+				p->counter += 2;
+		}
+		print_number_conversion(n, base, p);
+	}
 }
+
 
 void	unsigned_conversion(t_proto *p, va_list *arg)
 {

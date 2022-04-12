@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:41:36 by thule             #+#    #+#             */
-/*   Updated: 2022/04/10 04:38:24 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/12 11:40:26 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	central_dispatch(t_proto *p, va_list *arg)
 	arr[f_o] = unsigned_conversion;
 	arr[f_x] = unsigned_conversion;
 	arr[f_X] = unsigned_conversion;
+	arr[f_p] = print_address;
 
 	while (index < 12 && order[index] != p->specifier)
 		index++;

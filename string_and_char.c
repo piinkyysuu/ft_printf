@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_and_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 02:37:46 by thule             #+#    #+#             */
-/*   Updated: 2022/04/10 02:38:06 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/12 14:51:39 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@ void	print_single_character(t_proto *p, va_list *arg)
 {
 	char	c;
 	
+	c = '%';
 	if (p->specifier == 'c')
 		c = (unsigned char)va_arg(*arg, int);
-	else if (p->specifier == '%')
-		c = '%';
 	p->counter = p->counter + 1;
-	if (!p->minus)
-		field_width(p);
+	if (p->width > p->counter)
+	{
+		if (!p->minus)
+			padding_with_c(p->width - p->counter, ' ');
+		write(1, &c, 1);
+		if (p->minus)
+			padding_with_c(p->width - p->counter, ' ');
+		p->counter += p->width - p->counter;
+	}
 	write(1, &c, 1);
-	if (p->minus)
-		field_width(p);
 }
 
 void	print_string(t_proto *p, va_list *arg)
@@ -35,7 +39,17 @@ void	print_string(t_proto *p, va_list *arg)
 
 	s = (char *)va_arg(*arg, char *);
 	if (!s)
+	{
 		s = "(null)";
+		
+	}
+		
+
+
+
+
+
+		
 	strlen = ft_strlen(s);
 	if ((p->precision != -1) && p->precision < strlen && ft_strcmp(s, "(null)"))
 		strlen = p->precision;
