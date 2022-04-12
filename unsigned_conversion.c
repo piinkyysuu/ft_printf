@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 05:21:39 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 14:46:08 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 15:14:40 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_unsigned_conversion(t_proto *p, unsigned long long int n)
 	int	base;
 
 	base = assign_base(p);
-	if (!n && !p->precision)
+	if (!n && p->precision < 1)
 		case_0(p);
 	else
 	{

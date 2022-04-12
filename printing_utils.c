@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 02:35:18 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 14:48:18 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 15:21:23 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ void printer_helper(t_proto *p)
 
 void	print_number_conversion(unsigned long long n, int base, t_proto *p)
 {
-	char c;
+	// char c;
 
-	c = ' ';
-	if (p->zero)
-		c = '0';
+	// c = ' ';
+	// if (p->zero)
+	// 	c = '0';
 	if (p->width > p->counter)
 	{
 		if (!p->minus)
-			padding_with_c(p->width - p->counter, c);
+			padding_with_c(p->width - p->counter, ' ');
 		printer_helper(p);
 		print_number(n, base, p);
 		if (p->minus)
-			padding_with_c(p->width - p->counter, c);
+			padding_with_c(p->width - p->counter, ' ');
 		p->counter += p->width - p->counter;
 	}
 	else

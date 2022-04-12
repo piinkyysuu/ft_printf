@@ -6,7 +6,7 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:55:16 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 14:37:51 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/12 15:23:50 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_signed_conversion(t_proto *p, long long int n)
 	}
 	p->number_len = number_len(n, 10);
 	p->counter += ft_max(p->precision, p->number_len);
-	p->counter += (!(*p->prefix) && p->plus);
+	p->counter += (!(*p->prefix) && (p->plus || p->space));
 	print_number_conversion(n, 10, p);
 }
 
