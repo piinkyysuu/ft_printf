@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   number_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:53:49 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 14:23:19 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/16 03:27:10 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,22 @@ void	print_number(unsigned long long int n, int base, t_proto *p)
 	write(1, &c, 1);
 }
 
-int		assign_base(t_proto *p)
+void	print_number_conversion(unsigned long long n, t_proto *p)
 {
-	int	n;
+	int counter;
 
-	n = 16;
-	if (p->specifier == 'o')
-		n = 8;
-	else if (p->specifier == 'u')
-		n = 10;
-	return (n);
+	counter = 0;
+	if (p->width > p->counter)
+		counter = p->width - p->counter;
+	if (!p->minus)
+		padding_with_c(counter, ' ');
+	write(1, p->prefix, ft_strlen(p->prefix));
+	if (p->precision || n)
+	{
+		padding_with_c(p->zero_padding, '0');
+		print_number(n, p->base, p);
+	}
+	if (p->minus)
+		padding_with_c(counter, ' ');
+	p->counter += counter;
 }

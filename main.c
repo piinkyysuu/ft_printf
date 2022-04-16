@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:55:03 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 16:25:08 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/16 03:57:38 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,42 @@
 
 void print_prototype(t_proto *p)
 {
-	printf("%s____PRINT_PROTOTYPE____%s\n", MAGENTA, WHITE);
-	printf("minus		%d\n", p->minus);
-	printf("plus		%d\n", p->plus);
-	printf("space		%d\n", p->space);
-	printf("zero		%d\n", p->zero);
-	printf("hashtag		%d\n", p->hashtag);
-	printf("width		%d\n", p->width);
-	printf("precision	%d\n", p->precision);
-	printf("length		%s\n", p->length);
-	printf("specifier	%c\n", p->specifier);
+	printf("\n%s__PRINT_PROTOTYPE__%s\n", MAGENTA, WHITE);
+	printf("minus___________[%d]\n", p->minus);
+	printf("plus____________[%d]\n", p->plus);
+	printf("space___________[%d]\n", p->space);
+	printf("zero____________[%d]\n", p->zero);
+	printf("hashtag_________[%d]\n", p->hashtag);
+	printf("width___________[%d]\n", p->width);
+	printf("precision_______[%d]\n", p->precision);
+	printf("length__________[%s]\n", p->length);
+	printf("specifier_______[%c]\n", p->specifier);
+	printf("prefix__________[%s]\n", p->prefix);
+	printf("zero_pad________[%d]\n", p->zero_padding);
+	printf("base____________[%d]\n", p->base);
+	printf("number_len______[%d]\n", p->number_len);
+	printf("counter_________[%d]\n", p->counter);
+	printf("%s__END_OF_PROTOTYPE__%s\n", MAGENTA, WHITE);
 }
 
-
-void print_address(t_proto *p, va_list *arg)
+void	print_size_of_data_type(void)
 {
-	unsigned long long n;
+	printf("hhd	is	%lu\n", sizeof(signed char));
+	printf("hd	is	%lu\n", sizeof(short int));
+	printf("d	is	%lu\n", sizeof(int));
+	printf("ld	is	%lu\n", sizeof(long int));
+	printf("lld	is	%lu\n\n", sizeof(long long int));
 
-	n = va_arg(*arg, unsigned long long);
-	p->number_len = number_len(n, 16);
-	p->counter = p->number_len + 2;
-	if (!p->minus)
-		field_width(p);
-	write(1, "0x", 2);
-	print_number(n, 16, p);
-	if (p->minus)
-		field_width(p);
+	printf("hhu	is	%lu\n", sizeof(unsigned char));
+	printf("hu	is	%lu\n", sizeof(unsigned short int));
+	printf("u	is	%lu\n", sizeof(unsigned int));
+	printf("lu	is	%lu\n", sizeof(unsigned long int));
+	printf("llu	is	%lu\n\n", sizeof(unsigned long long int));
+
+	printf("f	is	%lu\n", sizeof(double));
+	printf("Lf	is	%lu\n", sizeof(long double));
 }
+
 
 int main()
 {
@@ -48,34 +57,17 @@ int main()
 	int ft = 0;
 	char *s = NULL;
 
-	printf("%05.d", 30);
-
-	// F("083.[%0#+10d]\t\t\t", -42);
-
-	// printf("[%.d, %.0d]", 0, 0);
-
-	// printf("hhd	is	%lu\n", sizeof(signed char));
-	// printf("hd	is	%lu\n", sizeof(short int));
-	// printf("d	is	%lu\n", sizeof(int));
-	// printf("ld	is	%lu\n", sizeof(long int));
-	// printf("lld	is	%lu\n\n", sizeof(long long int));
-
-	// printf("hhu	is	%lu\n", sizeof(unsigned char));
-	// printf("hu	is	%lu\n", sizeof(unsigned short int));
-	// printf("u	is	%lu\n", sizeof(unsigned int));
-	// printf("lu	is	%lu\n", sizeof(unsigned long int));
-	// printf("llu	is	%lu\n\n", sizeof(unsigned long long int));
-
-	// printf("f	is	%lu\n", sizeof(double));
-	// printf("Lf	is	%lu\n", sizeof(long double));
+	int i = 53;
+	while (i)
+	{
+		printf("1");
+		i--;
+	}
+	
 
 
-	// F("%p", "hello");
 	// //CASES THAT NEED FIXING:
-	//  F("3.|%0.4u|", 0);
-	// F("008.[% d]", 42);
-	// F("001.[%#08.2x]", 52);
-	// F("009.[%-010.5d]", 42);
+
 
 
 
@@ -305,7 +297,6 @@ int main()
 	// F("035.[%hd]", -42);
 	// F("036.[%lld]", 32768);
 	// F("037.[%hhd]", -129);
-	// F("038.[% ]");
 	// F("039.[%hhx]", 128);
 	// F("040.[%-5%]");
 	// F("041.[%03.2d]", 1);
@@ -350,7 +341,6 @@ int main()
 	// F("084.[%+00000010d]\t\t\t", 42);
 	// F("085.[%--+--+10d]\t\t\t", 42);
 	// F("086.[%----+--10d]\t\t\t", 42);
-	// F("087.[%]");
 	// F("088.[%x]\t\t\t", 4294967295);
 	// F("100.[%p]", ULONG_MAX);
 	// F("101.[%u]", -1);

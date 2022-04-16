@@ -3,68 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   unsigned_conversion.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 05:21:39 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 16:25:42 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/16 03:12:22 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	case_0(t_proto *p)
+void create_prefix_hashtag(t_proto *p, unsigned long long int n)
 {
-	if (p->specifier == 'o')
+	if (n)
 	{
-		p->counter++;
-		if (p->width > p->counter && !p->minus)
-			padding_with_c(p->width - p->counter, ' ');
-		write(1, "0", 1);
-		if (p->width > p->counter && p->minus)
-			padding_with_c(p->width - p->counter, ' ');
+		if (p->specifier == 'o')
+			p->prefix = "0";
+		else if (p->specifier == 'x')
+			p->prefix = "0x";
+		else if (p->specifier == 'X')
+			p->prefix = "0X";
 	}
 	else
 	{
-		if (p->width > p->counter)
-			padding_with_c(p->width - p->counter, ' ');
+		if (p->specifier == 'o' && !p->precision)
+			p->prefix = "0";
 	}
-	if (p->width > p->counter)
-		p->counter += p->width - p->counter;
 }
 
-void	print_unsigned_conversion(t_proto *p, unsigned long long int n)
+void unsigned_conversion_helper(t_proto *p, unsigned long long int n)
 {
-	int	base;
+	int prefix_len;
 
-	base = assign_base(p);
-	if (!n && p->precision < 1)
-		case_0(p);
-	else
-	{
-		p->number_len = number_len(n, base);
-		p->counter += ft_max(p->precision, p->number_len);
-		if (p->hashtag && n)
-		{
-			if (p->specifier == 'o' && p->precision < p->number_len)
-				p->counter++;
-			else if (p->specifier == 'x' || p->specifier == 'X')
-				p->counter += 2;
-		}
-		print_number_conversion(n, base, p);
-	}
+	if (n || p->precision)
+		p->number_len = number_len(n, p->base);
+	if (p->hashtag)
+		create_prefix_hashtag(p, n);
+	prefix_len = ft_strlen(p->prefix);
+	if (p->precision != -1)
+		p->zero_padding = p->precision - p->number_len - prefix_len;
+	else if (p->zero && !p->minus)
+		p->zero_padding = p->width - p->number_len - prefix_len;
+	if (p->zero_padding < 0)
+		p->zero_padding = 0;
+	p->counter = p->zero_padding + p->number_len + prefix_len;
+	print_number_conversion(n, p);
 }
 
-
-void	unsigned_conversion(t_proto *p, va_list *arg)
+void unsigned_conversion(t_proto *p, va_list *arg)
 {
 	if (ft_strcmp(p->length, "ll") == 0)
-		print_unsigned_conversion(p, (unsigned long long int)va_arg(*arg, unsigned long long int));
+		unsigned_conversion_helper(p, (unsigned long long int)va_arg(*arg, unsigned long long int));
 	else if (ft_strcmp(p->length, "hh") == 0)
-		print_unsigned_conversion(p, (unsigned char)va_arg(*arg, unsigned int));
+		unsigned_conversion_helper(p, (unsigned char)va_arg(*arg, unsigned int));
 	else if (ft_strcmp(p->length, "l") == 0)
-		print_unsigned_conversion(p, (unsigned long int)va_arg(*arg, unsigned long int));
+		unsigned_conversion_helper(p, (unsigned long int)va_arg(*arg, unsigned long int));
 	else if (ft_strcmp(p->length, "h") == 0)
-		print_unsigned_conversion(p, (unsigned short int)va_arg(*arg, unsigned int));
+		unsigned_conversion_helper(p, (unsigned short int)va_arg(*arg, unsigned int));
 	else
-		print_unsigned_conversion(p, (unsigned int)va_arg(*arg, unsigned int));
+		unsigned_conversion_helper(p, (unsigned int)va_arg(*arg, unsigned int));
 }

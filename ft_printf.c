@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:41:36 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 11:40:26 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/16 03:29:58 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	central_dispatch(t_proto *p, va_list *arg)
+void central_dispatch(t_proto *p, va_list *arg)
 {
-	char				*order;
-	int					index;
-	specifier_handler	*arr[12];
+	char *order;
+	int index;
+	specifier_handler *arr[12];
 
 	index = 0;
 	order = "cspdiouxXf%n";
-	arr[f_c] = print_single_character;
-	arr[f_percentage] = print_single_character;
+	arr[f_c] = print_character;
+	arr[f_percentage] = print_character;
 	arr[f_s] = print_string;
 	arr[f_d] = signed_conversion;
 	arr[f_i] = signed_conversion;
@@ -36,11 +36,11 @@ void	central_dispatch(t_proto *p, va_list *arg)
 	arr[index](p, arg);
 }
 
-int	ft_printf(const char *format, ...)
+int ft_printf(const char *format, ...)
 {
 	va_list arg;
 	t_proto p;
-	int	counter;
+	int counter;
 
 	counter = 0;
 	va_start(arg, format);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:36:22 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 14:48:13 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/16 03:30:03 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,14 @@ typedef struct s_proto
 	char *prefix;
 	int width;		// the minimum field width (width - strlen) and padded with (space)
 	int precision;	// .(some numbers)
-	char sign;		// for negative number
 	char specifier; // diouxX f csp
 	char minus;		// flag -
 	char plus;		// flag +
 	char space;		// flag (space)
 	char zero;		// flag 0
 	char hashtag;	// flag #
+	int zero_padding;
+	int base;
 	int counter;
 	int number_len;
 } t_proto;
@@ -81,35 +82,30 @@ int ft_printf(const char *format, ...);
 // prototype.c
 void prototype_initializer(t_proto *p);
 void prototype_handler(const char **format, t_proto *p);
-void delete_space(const char **format);
+void skip_space(const char **format);
 void length(const char **format, t_proto *p);
 void flags(const char **format, t_proto *p);
 
-// string_and_char.c
-void print_single_character(t_proto *p, va_list *arg);
+// string_char_address.c
+void print_character(t_proto *p, va_list *arg);
 void print_string(t_proto *p, va_list *arg);
+void print_address(t_proto *p, va_list *arg);
 
 // signed_conversion.c
 void signed_conversion(t_proto *p, va_list *arg);
-void print_signed_conversion(t_proto *p, long long int n);
+void signed_conversion_helper(t_proto *p, long long int n);
 
 // unsigned_conversion.c
-void case_0(t_proto *p);
 void unsigned_conversion(t_proto *p, va_list *arg);
-void print_unsigned_conversion(t_proto *p, unsigned long long int n);
-
-void print_address(t_proto *p, va_list *arg);
+void unsigned_conversion_helper(t_proto *p, unsigned long long int n);
 
 // printing_utils.c
 void padding_with_c(int len, char c);
-void field_width(t_proto *p);
-void printer_helper(t_proto *p);
-void	print_number_conversion(unsigned long long n, int base, t_proto *p);
 
 // number_utils.c
 int number_len(unsigned long long int n, int base);
 void print_number(unsigned long long int n, int base, t_proto *p);
-int assign_base(t_proto *p);
+void print_number_conversion(unsigned long long n, t_proto *p);
 
 // to delete later:
 void print_prototype(t_proto *p);
