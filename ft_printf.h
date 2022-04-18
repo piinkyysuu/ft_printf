@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:36:22 by thule             #+#    #+#             */
-/*   Updated: 2022/04/16 03:30:03 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/18 20:36:04 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ void signed_conversion_helper(t_proto *p, long long int n);
 // unsigned_conversion.c
 void unsigned_conversion(t_proto *p, va_list *arg);
 void unsigned_conversion_helper(t_proto *p, unsigned long long int n);
+
+//floating_point_conversion.c
+void	floating_point_conversion(t_proto *p, va_list *arg);
 
 // printing_utils.c
 void padding_with_c(int len, char c);

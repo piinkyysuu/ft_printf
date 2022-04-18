@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:55:03 by thule             #+#    #+#             */
-/*   Updated: 2022/04/16 03:57:38 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/18 22:39:45 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ int main()
 	int ft = 0;
 	char *s = NULL;
 
-	int i = 53;
-	while (i)
-	{
-		printf("1");
-		i--;
-	}
-	
+	long double a = 2.52359153;
+	// F("%.20Lf", a);
+	F("%+.20f", a);
 
 
 	// //CASES THAT NEED FIXING:

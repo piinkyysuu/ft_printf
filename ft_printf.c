@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:41:36 by thule             #+#    #+#             */
-/*   Updated: 2022/04/16 03:29:58 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/17 23:51:54 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void central_dispatch(t_proto *p, va_list *arg)
 	arr[f_x] = unsigned_conversion;
 	arr[f_X] = unsigned_conversion;
 	arr[f_p] = print_address;
+	arr[f_f] = floating_point_conversion;
 
 	while (index < 12 && order[index] != p->specifier)
 		index++;
