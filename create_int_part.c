@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_int_part.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:57 by thule             #+#    #+#             */
-/*   Updated: 2022/04/20 17:00:45 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/21 13:07:47 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ void	create_int_part(t_float *f, uint8_t *res)
 	int			to_shift;
 	
 	int_bit = f->fraction >> 11;
+	
 	to_shift = (int)f->exponent - 1023;
-	if (to_shift < 0)
+	if (to_shift < -1)
 		return ;
 	else
 		calc_int_part(int_bit, res, to_shift);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   number_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:53:49 by thule             #+#    #+#             */
-/*   Updated: 2022/04/20 00:10:08 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/21 14:31:46 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	zero_padding_value(t_proto *p, int nbr_len, int prefix_len)
 	int zero_padding;
 
 	zero_padding = 0;
-	if (p->precision != -1)
+	if (p->precision != -1 && p->specifier != 'f')
 		zero_padding = p->precision - nbr_len;
 	else if (p->zero && !p->minus)
 		zero_padding = p->width - nbr_len - prefix_len;

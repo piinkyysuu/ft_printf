@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   float_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:44:03 by thule             #+#    #+#             */
-/*   Updated: 2022/04/20 01:50:36 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:04:35 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ void	mutiply_by_2(uint8_t *arr, int len)
 	}
 }
 
+void	integer_plus_1(u_int8_t *int_arr)
+{
+	uint8_t one[39];
+
+	ft_memset(one, 0, 39);
+	one[38] = 1;
+	add_array(one, int_arr, 39);
+}
+
 void add_array(uint8_t *arr, uint8_t *res, int len)
 {
 	len = len - 1;
@@ -66,4 +75,18 @@ void add_array(uint8_t *arr, uint8_t *res, int len)
 		}
 		len--;
 	}
+}
+
+int float_prefix(t_float *f, t_proto *p)
+{
+	if (f->sign)
+		p->prefix = "-";
+	else
+	{
+		if (p->plus)
+			p->prefix = "+";
+		else if (p->space)
+			p->prefix = " ";
+	}
+	return (ft_strlen(p->prefix));
 }

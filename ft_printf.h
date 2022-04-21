@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:36:22 by thule             #+#    #+#             */
-/*   Updated: 2022/04/20 17:24:56 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:05:03 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,45 +96,65 @@ void skip_space(const char **format);
 void length(const char **format, t_proto *p);
 void flags(const char **format, t_proto *p);
 
+
 // string_char_address.c
 int print_character(t_proto *p, va_list *arg);
 int print_string(t_proto *p, va_list *arg);
 int print_address(t_proto *p, va_list *arg);
 
+
 // signed_conversion.c
 int signed_conversion(t_proto *p, va_list *arg);
 int signed_conversion_helper(t_proto *p, long long int n);
+
 
 // unsigned_conversion.c
 int unsigned_conversion(t_proto *p, va_list *arg);
 int unsigned_conversion_helper(t_proto *p, unsigned long long int n);
 
+
 // float_conversion.c
 int float_conversion(t_proto *p, va_list *arg);
+
 
 // float_utils.c
 void divide_by_2(uint8_t *arr, int len);
 void add_array(uint8_t *arr, uint8_t *res, int len);
 void mutiply_by_2(uint8_t *arr, int len);
+void	integer_plus_1(u_int8_t *int_arr);
+int float_prefix(t_float *f, t_proto *p);
+
+
+//rounding.c
+void	precision_0(uint8_t *int_arr, char *frac_str);
+void	rounding(t_float *f, uint8_t *int_arr, int precision);
+
 
 // create_frac_part.c
 char *create_frac_part(t_float *f, int precision);
 char *frac_str(uint8_t *res, int size);
 void calc_frac_part(uint64_t frac_bit, uint8_t *res, int to_shift);
 
+
 // create_int_part.c
 void create_int_part(t_float *f, uint8_t *res);
 char *int_str(uint8_t *res);
 void calc_int_part(uint64_t int_bit, uint8_t *res, int to_shift);
 
+
 // printing_utils.c
 void padding_with_c(int len, char c);
+
 
 // number_utils.c
 int number_len(unsigned long long int n, int base);
 void print_number(unsigned long long int n, int base, t_proto *p);
 int zero_padding_value(t_proto *p, int nbr_len, int prefix_len);
 int print_number_conversion(unsigned long long n, t_proto *p, int reserved_len, int prefix_len);
+
+
+
+
 
 // to delete later:
 void print_prototype(t_proto *p);
