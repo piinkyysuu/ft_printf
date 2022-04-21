@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 11:59:44 by thule             #+#    #+#             */
-/*   Updated: 2022/04/12 11:14:21 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/19 23:56:51 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	*ft_lltoa(long long int n);
 char	*ft_ulltoa(unsigned long long int n);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
+long long int	ft_abs(long long int nbr);
 
 /*_________GNL_________*/
 int		get_next_line(const int fd, char **line);

@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:36:22 by thule             #+#    #+#             */
-/*   Updated: 2022/04/18 20:36:04 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/20 17:24:56 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "libft/libft.h"
 #include <stdio.h> //rmb to delete
+#include <float.h> //rmb to delete
 #include <stdarg.h>
 #include <limits.h>
 
@@ -55,11 +56,20 @@ typedef struct s_proto
 	char hashtag;	// flag #
 	int zero_padding;
 	int base;
-	int counter;
+	int reserved_len;
 	int number_len;
 } t_proto;
 
-typedef void specifier_handler(t_proto *p, va_list *arg);
+typedef struct s_float
+{
+	uint8_t sign;
+	uint16_t exponent;
+	uint64_t fraction;
+	char *int_part;
+	char *frac_part;
+} t_float;
+
+typedef int specifier_handler(t_proto *p, va_list *arg);
 
 enum e_function
 {
@@ -87,20 +97,35 @@ void length(const char **format, t_proto *p);
 void flags(const char **format, t_proto *p);
 
 // string_char_address.c
-void print_character(t_proto *p, va_list *arg);
-void print_string(t_proto *p, va_list *arg);
-void print_address(t_proto *p, va_list *arg);
+int print_character(t_proto *p, va_list *arg);
+int print_string(t_proto *p, va_list *arg);
+int print_address(t_proto *p, va_list *arg);
 
 // signed_conversion.c
-void signed_conversion(t_proto *p, va_list *arg);
-void signed_conversion_helper(t_proto *p, long long int n);
+int signed_conversion(t_proto *p, va_list *arg);
+int signed_conversion_helper(t_proto *p, long long int n);
 
 // unsigned_conversion.c
-void unsigned_conversion(t_proto *p, va_list *arg);
-void unsigned_conversion_helper(t_proto *p, unsigned long long int n);
+int unsigned_conversion(t_proto *p, va_list *arg);
+int unsigned_conversion_helper(t_proto *p, unsigned long long int n);
 
-//floating_point_conversion.c
-void	floating_point_conversion(t_proto *p, va_list *arg);
+// float_conversion.c
+int float_conversion(t_proto *p, va_list *arg);
+
+// float_utils.c
+void divide_by_2(uint8_t *arr, int len);
+void add_array(uint8_t *arr, uint8_t *res, int len);
+void mutiply_by_2(uint8_t *arr, int len);
+
+// create_frac_part.c
+char *create_frac_part(t_float *f, int precision);
+char *frac_str(uint8_t *res, int size);
+void calc_frac_part(uint64_t frac_bit, uint8_t *res, int to_shift);
+
+// create_int_part.c
+void create_int_part(t_float *f, uint8_t *res);
+char *int_str(uint8_t *res);
+void calc_int_part(uint64_t int_bit, uint8_t *res, int to_shift);
 
 // printing_utils.c
 void padding_with_c(int len, char c);
@@ -108,9 +133,12 @@ void padding_with_c(int len, char c);
 // number_utils.c
 int number_len(unsigned long long int n, int base);
 void print_number(unsigned long long int n, int base, t_proto *p);
-void print_number_conversion(unsigned long long n, t_proto *p);
+int zero_padding_value(t_proto *p, int nbr_len, int prefix_len);
+int print_number_conversion(unsigned long long n, t_proto *p, int reserved_len, int prefix_len);
 
 // to delete later:
 void print_prototype(t_proto *p);
+void print_arr(uint8_t *arr, int amount);
+void print_amount_of_bits(uint64_t num, int i);
 
 #endif

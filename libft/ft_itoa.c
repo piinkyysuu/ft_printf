@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 01:42:47 by thule             #+#    #+#             */
-/*   Updated: 2021/12/05 21:44:14 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/19 23:37:44 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static int	count_len(long n)
 	return (count);
 }
 
-static long	ft_abs(long n)
-{
-	if (n < 0)
-	{
-		n = -n;
-	}
-	return (n);
-}
+// static long	ft_abs(long n)
+// {
+// 	if (n < 0)
+// 	{
+// 		n = -n;
+// 	}
+// 	return (n);
+// }
 
 char	*ft_itoa(int n)
 {

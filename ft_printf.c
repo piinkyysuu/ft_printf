@@ -6,13 +6,13 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:41:36 by thule             #+#    #+#             */
-/*   Updated: 2022/04/17 23:51:54 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/20 14:42:26 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void central_dispatch(t_proto *p, va_list *arg)
+int central_dispatch(t_proto *p, va_list *arg)
 {
 	char *order;
 	int index;
@@ -30,11 +30,11 @@ void central_dispatch(t_proto *p, va_list *arg)
 	arr[f_x] = unsigned_conversion;
 	arr[f_X] = unsigned_conversion;
 	arr[f_p] = print_address;
-	arr[f_f] = floating_point_conversion;
+	arr[f_f] = float_conversion;
 
 	while (index < 12 && order[index] != p->specifier)
 		index++;
-	arr[index](p, arg);
+	return arr[index](p, arg);
 }
 
 int ft_printf(const char *format, ...)
@@ -50,12 +50,10 @@ int ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			// printf("before:%d ", p.counter);
 			prototype_initializer(&p);
 			prototype_handler(&format, &p);
-			central_dispatch(&p, &arg);
-			counter += p.counter;
-			// printf("after:%d ", p.counter);
+			counter += central_dispatch(&p, &arg);
+			// printf("after:%d ", p.reserved_len);
 			// print_prototype(&p);
 		}
 		else

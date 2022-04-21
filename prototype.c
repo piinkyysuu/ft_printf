@@ -6,7 +6,7 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 23:02:06 by thule             #+#    #+#             */
-/*   Updated: 2022/04/16 02:02:12 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/19 23:12:21 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void prototype_initializer(t_proto *p)
 	p->space = '\0';
 	p->zero = '\0';
 	p->hashtag = '\0';
-	p->counter = 0;
+	p->reserved_len = 0;
 	p->number_len = 0;
 	p->zero_padding = 0;
 	p->base = 0;
@@ -87,7 +87,7 @@ void prototype_handler(const char **format, t_proto *p)
 	length(format, p);
 	skip_space(format);
 	p->specifier = **format;
-	
+
 	if (p->specifier == 'd' || p->specifier == 'i' || p->specifier == 'u')
 		p->base = 10;
 	else if (p->specifier == 'x' || p->specifier == 'X' || p->specifier == 'p')

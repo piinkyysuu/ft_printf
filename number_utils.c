@@ -6,15 +6,15 @@
 /*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:53:49 by thule             #+#    #+#             */
-/*   Updated: 2022/04/18 20:35:41 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/20 00:10:08 by thule            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	number_len(unsigned long long int n, int base)
+int number_len(unsigned long long int n, int base)
 {
-	int	len;
+	int len;
 
 	len = 0;
 	if (n == 0)
@@ -27,10 +27,10 @@ int	number_len(unsigned long long int n, int base)
 	return (len);
 }
 
-void	print_number(unsigned long long int n, int base, t_proto *p)
+void print_number(unsigned long long int n, int base, t_proto *p)
 {
-	char	c;
-	int		remainder;
+	char c;
+	int remainder;
 
 	if (n / base < 1)
 		remainder = n % base;
@@ -47,15 +47,15 @@ void	print_number(unsigned long long int n, int base, t_proto *p)
 	write(1, &c, 1);
 }
 
-void	print_number_conversion(unsigned long long n, t_proto *p)
+int print_number_conversion(unsigned long long n, t_proto *p, int reserved_len, int prefix_len)
 {
-	int counter;
+	int xspace;
 
-	counter = 0;
-	if (p->width > p->counter)
-		counter = p->width - p->counter;
+	xspace = 0;
+	if (p->width > reserved_len)
+		xspace = p->width - reserved_len;
 	if (!p->minus)
-		padding_with_c(counter, ' ');
+		padding_with_c(xspace, ' ');
 	write(1, p->prefix, ft_strlen(p->prefix));
 	if (p->precision || n)
 	{
@@ -63,6 +63,21 @@ void	print_number_conversion(unsigned long long n, t_proto *p)
 		print_number(n, p->base, p);
 	}
 	if (p->minus)
-		padding_with_c(counter, ' ');
-	p->counter += counter;
+		padding_with_c(xspace, ' ');
+	return (reserved_len + xspace);
+}
+
+
+int	zero_padding_value(t_proto *p, int nbr_len, int prefix_len)
+{
+	int zero_padding;
+
+	zero_padding = 0;
+	if (p->precision != -1)
+		zero_padding = p->precision - nbr_len;
+	else if (p->zero && !p->minus)
+		zero_padding = p->width - nbr_len - prefix_len;
+	zero_padding = ft_max(zero_padding, 0);
+	p->zero_padding = zero_padding;
+	return (zero_padding);
 }
