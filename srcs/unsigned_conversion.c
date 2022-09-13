@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unsigned_conversion.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 05:21:39 by thule             #+#    #+#             */
-/*   Updated: 2022/04/20 00:37:35 by thule            ###   ########.fr       */
+/*   Updated: 2022/05/05 15:57:35 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int unsigned_prefix(t_proto *p, unsigned long long int n, int nbr_len)
+int	unsigned_prefix(t_proto *p, unsigned long long int n, int nbr_len)
 {
 	if (n)
 	{
@@ -31,10 +31,10 @@ int unsigned_prefix(t_proto *p, unsigned long long int n, int nbr_len)
 	return (ft_strlen(p->prefix));
 }
 
-int unsigned_conversion_helper(t_proto *p, unsigned long long int n)
+int	unsigned_conversion_helper(t_proto *p, unsigned long long int n)
 {
-	int prefix_len;
-	int nbr_len;
+	int	prefix_len;
+	int	nbr_len;
 	int	reserved_len;
 
 	nbr_len = 0;
@@ -43,21 +43,27 @@ int unsigned_conversion_helper(t_proto *p, unsigned long long int n)
 		nbr_len = number_len(n, p->base);
 	if (p->hashtag)
 		prefix_len = unsigned_prefix(p, n, nbr_len);
-	reserved_len = zero_padding_value(p, nbr_len, prefix_len) + nbr_len + prefix_len;
-	return print_number_conversion(n, p, reserved_len, prefix_len);
+	reserved_len = zero_padding_value(p, nbr_len, prefix_len) \
+				+ nbr_len + prefix_len;
+	return (print_number_conversion(n, p, reserved_len));
 }
 
-int unsigned_conversion(t_proto *p, va_list *arg)
+int	unsigned_conversion(t_proto *p, va_list *arg)
 {
 	if (ft_strcmp(p->length, "ll") == 0)
-		return unsigned_conversion_helper(p, (unsigned long long int)va_arg(*arg, unsigned long long int));
+		return (unsigned_conversion_helper(p, \
+				(unsigned long long int)va_arg(*arg, unsigned long long int)));
 	else if (ft_strcmp(p->length, "hh") == 0)
-		return unsigned_conversion_helper(p, (unsigned char)va_arg(*arg, unsigned int));
+		return (unsigned_conversion_helper(p, \
+				(unsigned char)va_arg(*arg, unsigned int)));
 	else if (ft_strcmp(p->length, "l") == 0)
-		return unsigned_conversion_helper(p, (unsigned long int)va_arg(*arg, unsigned long int));
+		return (unsigned_conversion_helper(p, \
+				(unsigned long int)va_arg(*arg, unsigned long int)));
 	else if (ft_strcmp(p->length, "h") == 0)
-		return unsigned_conversion_helper(p, (unsigned short int)va_arg(*arg, unsigned int));
+		return (unsigned_conversion_helper(p, \
+				(unsigned short int)va_arg(*arg, unsigned int)));
 	else
-		return unsigned_conversion_helper(p, (unsigned int)va_arg(*arg, unsigned int));
-	return (-1);
+		return (unsigned_conversion_helper(p, \
+				(unsigned int)va_arg(*arg, unsigned int)));
+	return (0);
 }

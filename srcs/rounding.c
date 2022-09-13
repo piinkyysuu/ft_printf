@@ -6,13 +6,13 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:41:57 by thle              #+#    #+#             */
-/*   Updated: 2022/04/21 14:42:28 by thle             ###   ########.fr       */
+/*   Updated: 2022/05/05 16:01:46 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	precision_0(uint8_t *int_arr, char *frac_str)
+static void	precision_0(uint8_t *int_arr, char *frac_str, char hashtag)
 {
 	int	index;
 
@@ -28,7 +28,7 @@ void	precision_0(uint8_t *int_arr, char *frac_str)
 				if (frac_str[index] != '0')
 				{
 					integer_plus_1(int_arr);
-					break;
+					break ;
 				}
 				index++;
 			}
@@ -37,36 +37,43 @@ void	precision_0(uint8_t *int_arr, char *frac_str)
 	else if (frac_str[1] > '5')
 		integer_plus_1(int_arr);
 	ft_bzero(frac_str, ft_strlen(frac_str));
+	if (hashtag)
+		frac_str[0] = '.';
 }
 
-void	rounding(t_float *f, uint8_t *int_arr, int precision)
+static void	other_precision(char *frac_str, \
+						uint8_t *int_arr, int precision)
 {
-	char	*frac_str;
-	int		index;
+	int	index;
 
 	index = precision;
+	if (frac_str[index + 1] >= '5')
+	{
+		if (frac_str[index] < '9')
+			frac_str[index]++;
+		else if (frac_str[index] == '9')
+		{
+			while (frac_str[index] == '9')
+			{
+				frac_str[index] = '0';
+				index--;
+			}
+			if (ft_isdigit(frac_str[index]))
+				frac_str[index]++;
+			else
+				integer_plus_1(int_arr);
+		}
+	}
+	ft_bzero(frac_str + precision + 1, 1);
+}
+
+void	rounding(t_float *f, uint8_t *int_arr, int precision, char hashtag)
+{
+	char	*frac_str;
+
 	frac_str = f->frac_part;
 	if (!precision)
-		precision_0(int_arr, frac_str);
+		precision_0(int_arr, frac_str, hashtag);
 	else if (precision > 0)
-	{
-		if (frac_str[index + 1] >= '5')
-		{
-			if (frac_str[index] < '9')
-				frac_str[index]++;
-			else if (frac_str[index] == '9')
-			{
-				while (frac_str[index] == '9')
-				{
-					frac_str[index] = '0';
-					index--;
-				}
-				if (ft_isdigit(frac_str[index]))
-					frac_str[index]++;
-				else
-					integer_plus_1(int_arr);
-			}
-		}
-		ft_bzero(frac_str + precision + 1, 1);
-	}
+		other_precision(frac_str, int_arr, precision);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prototype.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 23:02:06 by thule             #+#    #+#             */
-/*   Updated: 2022/04/19 23:12:21 by thule            ###   ########.fr       */
+/*   Updated: 2022/04/21 19:23:47 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void prototype_initializer(t_proto *p)
+void	prototype_initializer(t_proto *p)
 {
 	ft_bzero(p->length, 3);
 	p->width = 0;
@@ -24,29 +24,32 @@ void prototype_initializer(t_proto *p)
 	p->space = '\0';
 	p->zero = '\0';
 	p->hashtag = '\0';
-	p->reserved_len = 0;
-	p->number_len = 0;
 	p->zero_padding = 0;
 	p->base = 0;
 }
 
-void flags(const char **format, t_proto *p)
+void	flags(const char **format, t_proto *p)
 {
-	while (**format == '-' || **format == '+' || **format == ' ' ||
-		   **format == '#' || **format == '0')
+	while (**format == '-' || **format == '+' || **format == ' '
+		||**format == '#' || **format == '0')
 	{
-		p->minus += (**format == '-');
-		p->plus += (**format == '+');
-		p->space += (**format == ' ');
-		p->zero += (**format == '0');
-		p->hashtag += (**format == '#');
+		if (!p->minus && **format == '-')
+			p->minus++;
+		else if (!p->plus && **format == '+')
+			p->plus++;
+		else if (!p->space && **format == ' ')
+			p->space++;
+		else if (!p->zero && **format == '0')
+			p->zero++;
+		else if (!p->hashtag && **format == '#')
+			p->hashtag++;
 		(*format)++;
 	}
 }
 
-void length(const char **format, t_proto *p)
+void	length(const char **format, t_proto *p)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while ((**format == 'l' || **format == 'h' || **format == 'L'))
@@ -58,13 +61,7 @@ void length(const char **format, t_proto *p)
 	(p->length)[index] = '\0';
 }
 
-void skip_space(const char **format)
-{
-	while (**format == ' ' && **format != '\0')
-		(*format)++;
-}
-
-void prototype_handler(const char **format, t_proto *p)
+void	prototype_handler(const char **format, t_proto *p)
 {
 	(*format)++;
 	flags(format, p);
@@ -87,11 +84,5 @@ void prototype_handler(const char **format, t_proto *p)
 	length(format, p);
 	skip_space(format);
 	p->specifier = **format;
-
-	if (p->specifier == 'd' || p->specifier == 'i' || p->specifier == 'u')
-		p->base = 10;
-	else if (p->specifier == 'x' || p->specifier == 'X' || p->specifier == 'p')
-		p->base = 16;
-	else if (p->specifier == 'o')
-		p->base = 8;
+	p->base = assign_base(p->specifier);
 }

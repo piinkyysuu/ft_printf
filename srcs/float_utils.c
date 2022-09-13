@@ -6,17 +6,17 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:44:03 by thule             #+#    #+#             */
-/*   Updated: 2022/04/21 15:04:35 by thle             ###   ########.fr       */
+/*   Updated: 2022/04/21 19:30:14 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void divide_by_2(uint8_t *arr, int len)
+void	divide_by_2(uint8_t *arr, int len)
 {
-	int remainder;
-	int index;
-	int last_value;
+	int	remainder;
+	int	index;
+	int	last_value;
 
 	remainder = 0;
 	index = 0;
@@ -55,14 +55,14 @@ void	mutiply_by_2(uint8_t *arr, int len)
 
 void	integer_plus_1(u_int8_t *int_arr)
 {
-	uint8_t one[39];
+	uint8_t	one[39];
 
-	ft_memset(one, 0, 39);
+	ft_memset(one, 0, sizeof(uint8_t) * 39);
 	one[38] = 1;
 	add_array(one, int_arr, 39);
 }
 
-void add_array(uint8_t *arr, uint8_t *res, int len)
+void	add_array(uint8_t *arr, uint8_t *res, int len)
 {
 	len = len - 1;
 	while (len >= 0)
@@ -77,7 +77,7 @@ void add_array(uint8_t *arr, uint8_t *res, int len)
 	}
 }
 
-int float_prefix(t_float *f, t_proto *p)
+int	float_prefix(t_float *f, t_proto *p)
 {
 	if (f->sign)
 		p->prefix = "-";

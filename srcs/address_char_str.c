@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   address_char_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thule <thule@student.42.fr>                +#+  +:+       +#+        */
+/*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 02:37:46 by thule             #+#    #+#             */
-/*   Updated: 2022/04/19 23:27:49 by thule            ###   ########.fr       */
+/*   Updated: 2022/09/13 09:23:28 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_address(t_proto *p, va_list *arg)
+int	print_address(t_proto *p, va_list *arg)
 {
-	unsigned long long n;
-	int	xspace;
-	int	reserved_len;
+	unsigned long long	n;
+	int					xspace;
+	int					reserved_len;
 
 	xspace = 0;
 	reserved_len = 0;
 	n = va_arg(*arg, unsigned long long);
-	p->number_len = number_len(n, p->base);
-	reserved_len = 2 + p->number_len;
+	reserved_len = 2 + number_len(n, p->base);
 	if (p->width > reserved_len)
 		xspace = p->width - reserved_len;
 	if (!p->minus)
@@ -34,11 +33,11 @@ int print_address(t_proto *p, va_list *arg)
 	return (reserved_len + xspace);
 }
 
-int print_character(t_proto *p, va_list *arg)
+int	print_character(t_proto *p, va_list *arg)
 {
-	char c;
-	int xspace;
-	int reserved_len;
+	int		xspace;
+	int		reserved_len;
+	char	c;
 
 	c = '%';
 	xspace = 0;
@@ -56,11 +55,11 @@ int print_character(t_proto *p, va_list *arg)
 	return (xspace + reserved_len);
 }
 
-int print_string(t_proto *p, va_list *arg)
+int	print_string(t_proto *p, va_list *arg)
 {
-	char *s;
-	int	xspace;
-	int	reserved_len;
+	char	*s;
+	int		xspace;
+	int		reserved_len;
 
 	xspace = 0;
 	reserved_len = 0;

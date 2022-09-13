@@ -6,15 +6,15 @@
 /*   By: thle <thle@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 03:53:49 by thule             #+#    #+#             */
-/*   Updated: 2022/04/21 14:31:46 by thle             ###   ########.fr       */
+/*   Updated: 2022/05/05 15:56:42 by thle             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int number_len(unsigned long long int n, int base)
+int	number_len(unsigned long long int n, int base)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -27,10 +27,10 @@ int number_len(unsigned long long int n, int base)
 	return (len);
 }
 
-void print_number(unsigned long long int n, int base, t_proto *p)
+void	print_number(unsigned long long int n, int base, t_proto *p)
 {
-	char c;
-	int remainder;
+	char	c;
+	int		remainder;
 
 	if (n / base < 1)
 		remainder = n % base;
@@ -47,9 +47,10 @@ void print_number(unsigned long long int n, int base, t_proto *p)
 	write(1, &c, 1);
 }
 
-int print_number_conversion(unsigned long long n, t_proto *p, int reserved_len, int prefix_len)
+int	print_number_conversion(unsigned long long n, t_proto *p, \
+							int reserved_len)
 {
-	int xspace;
+	int	xspace;
 
 	xspace = 0;
 	if (p->width > reserved_len)
@@ -67,10 +68,9 @@ int print_number_conversion(unsigned long long n, t_proto *p, int reserved_len, 
 	return (reserved_len + xspace);
 }
 
-
 int	zero_padding_value(t_proto *p, int nbr_len, int prefix_len)
 {
-	int zero_padding;
+	int	zero_padding;
 
 	zero_padding = 0;
 	if (p->precision != -1 && p->specifier != 'f')
