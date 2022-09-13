@@ -11,9 +11,7 @@ int		ft_printf(const char *format, ...)
 make
 ```
 
-### Functionality:
-
-**Pattern:**
+### Pattern:
 
 ```
 %[flags][width][.precision][length]specifier
