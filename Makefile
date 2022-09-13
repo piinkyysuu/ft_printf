@@ -43,7 +43,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 
 clean:
 	@$(MAKE) -sC ./libft clean
-	@/bin/rm -f $(OBJ)
+	@/bin/rm -rf $(OBJS_DIR)
 
 fclean: clean
 	@$(MAKE) -sC ./libft fclean
